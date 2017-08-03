@@ -52,23 +52,22 @@ if [[ $error == 1 ]]; then
 
       # if diff exits with a difference (i.e. exit code 1), send an e-mail
       # otherwise (i.e. exit code 0), do nothing
-      if [[ $diff_exit_code == 1 ]]  
-      then
+      if [[ $diff_exit_code == 1 ]]; then
 	     
-	     # send an e-mail alert    
+	 # send an e-mail alert    
          php -r "mail('$email','$site: UPDATE!!!','There has been an update for $url');"
 
-		 # send a push notification to an iOS device using pushMe by https://pushme.jagcesar.se/ (bash script via https://gist.github.com/JagCesar/94e4a2f91d876d8ae2119f70e12ce1ad)
-		 ./pushMe.sh $url
+	# send a push notification to an iOS device using pushMe by https://pushme.jagcesar.se/ (bash script via https://gist.github.com/JagCesar/94e4a2f91d876d8ae2119f70e12ce1ad)
+	./pushMe.sh $url
         
-      else
-	  	
-	  	echo null > /dev/null
+      else  	
+	
+	echo null > /dev/null
         #  php -r "mail('$email','$site: sorry, no updates available','no updates at $url.');"
 
       fi
 
       # prepare this crawl to be the diffed with in the next rotation
       mv current_$site.txt before_$site.txt      
-    
+      
 fi
